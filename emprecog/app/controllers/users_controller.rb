@@ -1,10 +1,17 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  #before_action :require_user, except: [:new, :create]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if current_user && current_user.role == 'admin'
+      @users = User.all
+    elsif current_user
+      @users = [current_user]
+    else
+      puts "no current user"
+    end
   end
 
   # GET /users/1
@@ -62,13 +69,13 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:name, :username, :password, :signature, :role)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :signature)
+  end
 end
