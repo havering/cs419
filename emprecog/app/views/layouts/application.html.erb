@@ -11,28 +11,31 @@
 <body>
 <nav class="navbar navbar-dark bg-primary">
   <ul class="nav navbar-nav">
-      <li class="nav-item active">
-        <%= link_to "Home", root_path, class: "nav-link" %>
-      </li>
+    <li class="nav-item active">
+      <%= link_to "Home", root_path, class: "nav-link" %>
+    </li>
+    <% if current_user %>
       <li class="nav-item">
         <%= link_to "My Profile", users_path, class: "nav-link" %>
       </li>
       <li class="nav-item">
         <%= link_to "Awards", awards_path, class: "nav-link" %>
       </li>
-    <% if current_user %>
       <li class="nav-item">
         <%= link_to "Logout", logout_path, class: "nav-link" %>
       </li>
-      <% else %>
-    <li class="nav-item">
-      <%= link_to "Login", login_path, class: "nav-link" %>
-    </li>
-      <% end %>
-    </ul>
+    <% else %>
+      <li class="nav-item">
+        <%= link_to "Signup", signup_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Login", login_path, class: "nav-link" %>
+      </li>
+    <% end %>
+  </ul>
 </nav>
 <div class="container">
-<%= yield %>
+  <%= yield %>
 </div>
 </body>
 </html>

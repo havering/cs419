@@ -2,7 +2,8 @@ class User < ApplicationRecord
   include ActiveModel::Validations
 
   validates :email, presence: true
-  validates :name, presence: true
+  validates :firstname, presence: true
+  validates :lastname, presence: true
   validates :password, presence: true
 
   # validate that the username is a valid email address format

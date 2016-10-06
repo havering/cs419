@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :name %>
+    <%= f.collection_select :name, User.order(:firstname), :id, :firstname, include_blank: true %>
+  </div>
+
+  <div class="field">
     <%= f.label :type %>
     <%= f.text_field :type %>
   </div>

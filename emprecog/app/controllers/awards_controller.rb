@@ -26,6 +26,8 @@ class AwardsController < ApplicationController
   def create
     @award = Award.new(award_params)
 
+    #awardee = User.where(name:
+
     respond_to do |format|
       if @award.save
         format.html { redirect_to @award, notice: 'Award was successfully created.' }
@@ -69,6 +71,6 @@ class AwardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def award_params
-      params.require(:award).permit(:type, :granted)
+      params.require(:award).permit(:type, :name, :granted)
     end
 end
