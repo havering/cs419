@@ -24,7 +24,12 @@ class AwardsController < ApplicationController
   # POST /awards
   # POST /awards.json
   def create
-    @award = Award.new(award_params)
+    first = award_params[:name].split.first
+    last = award_params[:name].split.last
+    user = User.where(firstname: first, lastname: last)
+    email = user.first.email
+
+    @award = Award.new(award_params.merge({ user_id: user.first.id, email: email }))
 
     #awardee = User.where(name:
 
@@ -71,6 +76,6 @@ class AwardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def award_params
-      params.require(:award).permit(:type, :name, :granted)
+      params.require(:award).permit(:award_type, :granted, :name)
     end
 end

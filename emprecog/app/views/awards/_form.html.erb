@@ -13,13 +13,13 @@
 
   <div class="field">
     <%= f.label :name %>
-    <%= f.collection_select :name, User.order(:firstname), :id, :firstname, include_blank: true %>
+    <%= f.collection_select :name, User.order(:firstname), :full_name, :full_name, include_blank: true %>
   </div>
 
   <!-- using array as values for collection_select: http://stackoverflow.com/questions/20122257/ror-collection-select-from-array -->
   <div class="field">
-    <%= f.label :type %>
-    <%= f.collection_select :type, Award.get_awards, :to_s, :to_s, include_blank: false %>
+    <%= f.label :award_type %>
+    <%= f.collection_select :award_type, Award.get_awards, :to_s, :to_s, include_blank: false %>
   </div>
 
   <!-- date_select found via: http://stackoverflow.com/questions/9643631/datetime-select-without-seconds-minutes-or-hours-in-a-form-for -->

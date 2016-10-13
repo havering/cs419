@@ -13,4 +13,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :awards
+
+  def full_name
+    "#{self.firstname} #{self.lastname}"
+  end
 end

@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Awardee</th>
-      <th>Type</th>
+      <th>Award Type</th>
       <th>Granted</th>
       <th colspan="3"></th>
     </tr>
@@ -16,8 +16,8 @@
     <% @awards.each do |award| %>
       <tr>
         <td><%= award.name %></td>
-        <td><%= award.type %></td>
-        <td><%= award.granted %></td>
+        <td><%= award.award_type %></td>
+        <td><%= award.granted.strftime("%B %d, %Y") %></td>
         <td><%= link_to 'Show', award %></td>
         <td><%= link_to 'Edit', edit_award_path(award) %></td>
         <td><%= link_to 'Destroy', award, method: :delete, data: { confirm: 'Are you sure?' } %></td>
