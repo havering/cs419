@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161013040730) do
+ActiveRecord::Schema.define(version: 20161013171821) do
 
   create_table "awards", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "award_type"
@@ -32,6 +32,9 @@ ActiveRecord::Schema.define(version: 20161013040730) do
     t.datetime "updated_at",                                     null: false
     t.string   "firstname"
     t.string   "lastname"
+    t.string   "answer1"
+    t.string   "answer2"
+    t.string   "answer3"
   end
 
   add_foreign_key "awards", "users"

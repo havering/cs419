@@ -7,16 +7,17 @@ class UsersController < ApplicationController
   def index
     if current_user && current_user.role == 'admin'
       @users = User.all
-    elsif current_user
-      @users = [current_user]
     else
-      puts "no current user"
+      redirect_to root_path
     end
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    unless current_user && current_user.id == @user.id
+      redirect_to root_path
+    end
   end
 
   # GET /users/new
@@ -26,6 +27,9 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    unless @user.id == current_user.id
+      redirect_to root_path
+    end
   end
 
   # POST /users
@@ -76,6 +80,6 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:firstname, :lastname, :email, :password, :signature)
+    params.require(:user).permit(:firstname, :lastname, :email, :password, :signature, :answer1, :answer2, :answer3)
   end
 end
