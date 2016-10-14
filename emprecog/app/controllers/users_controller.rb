@@ -72,6 +72,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def reset_password
+    num = rand(1..3)
+
+    if num == 1
+      @question = 'What is your favorite color?'
+    elsif num == 2
+      @question = 'What is the name of your high school?'
+    else
+      @question = 'At what age did you get your driver\'s license?'
+    end
+  end
+
+  def newpassword
+
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
