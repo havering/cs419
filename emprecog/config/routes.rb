@@ -7,8 +7,7 @@ Rails.application.routes.draw do
   get 'logout' => 'sessions#destroy'
   get 'signup' => 'users#new'
   get 'reset_password' => 'users#reset_password'
-  #get 'reset_password' => 'users#newpassword'
-
+  post 'reset_password' => 'users#newpassword'
 
   root 'home#index'
 end

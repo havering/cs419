@@ -85,7 +85,23 @@ class UsersController < ApplicationController
   end
 
   def newpassword
+    puts "params answer is #{params[:users][:answer]}"
+    puts "params email is #{params[:users][:email]}"
 
+    answer = params[:users][:answer]
+
+    user = User.find_by_email(params[:users][:email])
+
+    puts "user is (before unless) #{user.inspect}"
+    if user
+      if answer == (user.answer1 || user.answer2 || user.answer3)
+        # do something
+      else
+        redirect_to reset_password_path, notice: 'Invalid answer to security question'
+      end
+    else
+      redirect_to reset_password_path, notice: 'User not found'
+    end
   end
 
   private
