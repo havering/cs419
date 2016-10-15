@@ -1,0 +1,8 @@
+<p>Choose a new password.</p>
+
+<%= form_for :users, :url => { :action => "set_new" } do |f| %>
+  <%= f.label :new_password %><br>
+  <%= f.password_field :newpassword %><br>
+  <%= f.hidden_field :email, :value => @password_user.email %>
+  <%= f.submit 'Submit' %>
+<% end %>

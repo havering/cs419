@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new'
   get 'reset_password' => 'users#reset_password'
   post 'reset_password' => 'users#newpassword'
+  post 'set_new' => 'users#set_new'
 
   root 'home#index'
 end

@@ -90,18 +90,36 @@ class UsersController < ApplicationController
 
     answer = params[:users][:answer]
 
-    user = User.find_by_email(params[:users][:email])
+    @password_user = User.find_by_email(params[:users][:email])
 
-    puts "user is (before unless) #{user.inspect}"
-    if user
-      if answer == (user.answer1 || user.answer2 || user.answer3)
-        # do something
+    puts "user answers are:"
+    puts "- #{@password_user.answer1}"
+    puts "- #{@password_user.answer2}"
+    puts "- #{@password_user.answer3}"
+    puts "Answers are the same?"
+    puts "#{@password_user.answer1} - #{@password_user.answer1 == answer}"
+    puts "#{@password_user.answer2} - #{@password_user.answer2 == answer}"
+    puts "#{@password_user.answer3} - #{@password_user.answer3 == answer}"
+
+    if @password_user
+      if answer == (@password_user.answer1.to_s || @password_user.answer2.to_s || @password_user.answer3.to_s)
+        return render :set_new
       else
-        redirect_to reset_password_path, notice: 'Invalid answer to security question'
+        return redirect_to reset_password_path, notice: 'Invalid answer to security question'
       end
     else
-      redirect_to reset_password_path, notice: 'User not found'
+      return redirect_to reset_password_path, notice: 'User not found'
     end
+  end
+
+  def set_new
+    email = params[:users][:email]
+    password = params[:users][:newpassword]
+
+    user = User.find_by_email(email)
+    user.update(password: password)
+
+    redirect_to login_path, notice: 'Password updated. Please log in.'
   end
 
   private
