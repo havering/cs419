@@ -14,5 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require signature-pad
+//= require signature_pad
 //= require_tree .

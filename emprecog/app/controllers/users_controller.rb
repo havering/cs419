@@ -118,6 +118,10 @@ class UsersController < ApplicationController
     redirect_to login_path, notice: 'Password updated. Please log in.'
   end
 
+  def get_signature
+
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user

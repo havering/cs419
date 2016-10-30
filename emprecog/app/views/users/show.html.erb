@@ -17,7 +17,11 @@
 
 <p>
   <strong>Signature:</strong>
-  <%= @user.signature %>
+  <% if @user.signature %>
+    <%= @user.signature %>
+  <% else %>
+    <%= link_to 'Set signature', new_signature_path(@user) %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
