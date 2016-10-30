@@ -1,5 +1,6 @@
 <%= simple_form_for current_user do |f| %>
   <%= f.input_field :signature, as: :hidden, class: 'signature_pad_input' %>
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
   <div class="signature_pad text-center">
     <div class="signature_pad_body">
       <canvas></canvas>
@@ -7,7 +8,7 @@
     <div class="signature_pad_footer">
       <div class="text-muted">Sign above</div>
       <button type="button" class="btn btn-default signature_pad_clear">Clear</button>
-      <%= f.button :submit, 'Save', class: 'btn btn-success signature_pad_save'  %>
+      <%= f.button :submit, 'Save', class: 'btn signature_pad_save'  %>
     </div>
   </div>
 <% end %>

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   #before_action :require_user, except: [:new, :create]
+  protect_from_forgery
 
   # GET /users
   # GET /users.json
@@ -119,7 +120,12 @@ class UsersController < ApplicationController
   end
 
   def get_signature
+  end
 
+  def set_signature
+      @user.update(signature: params[:user][:signature])
+      format.html { render root_path, notice: 'Signature set!' }
+      format.json { render :show, status: ok, location: @user }
   end
 
   private
