@@ -1,4 +1,4 @@
-<%= form_for(user) do |f| %>
+<%= simple_form_for(user) do |f| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -47,7 +47,20 @@
     <p>At what age did you get your driver's license?</p>
     <%= f.text_field :answer3 %>
   </div>
+
+  <h4>Signature</h4>
+  <%= f.input_field :signature, as: :hidden, class: 'signature_pad_input' %>
+   <div class="signature_pad text-center">
+     <div class="signature_pad_body">
+       <canvas></canvas>
+     </div>
+     <div class="signature_pad_footer">
+       <div class="text-muted">Sign above</div>
+       <button type="button" class="btn btn-default signature_pad_clear">Clear</button>
+       <% #f.button :submit, 'Save', class: 'btn signature_pad_save'  %>
+     </div>
+   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :submit, :class => 'btn signature_pad_save' %>
   </div>
 <% end %>
