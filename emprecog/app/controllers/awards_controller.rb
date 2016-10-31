@@ -14,7 +14,11 @@ class AwardsController < ApplicationController
 
   # GET /awards/new
   def new
-    @award = Award.new
+    if current_user.role == 'admin'
+      redirect_to root_path
+    else
+      @award = Award.new
+    end
   end
 
   # GET /awards/1/edit

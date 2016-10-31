@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    unless current_user && current_user.id == @user.id
+    unless current_user && current_user.id == @user.id || current_user && current_user.role == 'admin'
       redirect_to root_path
     end
   end
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    unless @user.id == current_user.id
+    unless @user.id == current_user.id || current_user.role == 'admin'
       redirect_to root_path
     end
   end
