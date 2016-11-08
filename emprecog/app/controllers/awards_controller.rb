@@ -35,10 +35,11 @@ class AwardsController < ApplicationController
 
     @award = Award.new(award_params.merge({ user_id: user.first.id, email: email }))
 
-    #awardee = User.where(name:
-
     respond_to do |format|
       if @award.save
+        # if it saves, then send off an email about it
+        AwardMailer.award_email(user.first, @award.granted, current_user, current_user.signature, @award).deliver_now
+        
         format.html { redirect_to @award, notice: 'Award was successfully created.' }
         format.json { render :show, status: :created, location: @award }
       else
