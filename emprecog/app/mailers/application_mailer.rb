@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
   default from: 'ohaverd@oregonstate.edu'
-  layout 'mailer'
+  #layout 'award_mailer'
 end

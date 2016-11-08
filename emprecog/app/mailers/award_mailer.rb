@@ -10,6 +10,6 @@ class AwardMailer < ApplicationMailer
     @signature = signature
     @award = award
 
-    mail(to: @awardee.email, subject: 'You\'ve been given an award!')
+    mail(to: @awardee.email, subject: 'Award time!')
   end
 end

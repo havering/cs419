@@ -38,8 +38,11 @@ class AwardsController < ApplicationController
     respond_to do |format|
       if @award.save
         # if it saves, then send off an email about it
-        AwardMailer.award_email(user.first, @award.granted, current_user, current_user.signature, @award).deliver_now
-
+        mail = AwardMailer.award_email(user.first, @award.granted, current_user, current_user.signature, @award)
+        results = mail.deliver_now
+        puts "$" * 50
+        puts "results is: #{results}"
+        puts "$" * 50
         format.html { redirect_to @award, notice: 'Award was successfully created.' }
         format.json { render :show, status: :created, location: @award }
       else
