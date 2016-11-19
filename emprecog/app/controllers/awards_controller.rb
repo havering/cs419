@@ -38,15 +38,34 @@ class AwardsController < ApplicationController
     respond_to do |format|
       if @award.save
         # if it saves, then send off an email about it
-        pdf = Prawn::Document.new
-        pdf.text "Hello World!"
-        pdf.render_file "test.pdf"
+        sig = current_user.signature
+
+        sig = sig['data:image/png;base64,'.length .. -1]
+
+        File.open('TEST_FILE1.png', 'wb') do|f|
+          f.write(Base64.decode64(sig))
+        end
+
+        # http://stackoverflow.com/questions/5685492/pdf-generating-with-prawn-how-can-i-acces-variable-in-prawn-generate
+        Prawn::Document.generate("test.pdf") do |pdf|
+          pdf.text "#{@award.award_type}", align: :center, size: 42
+          pdf.move_down 20
+          pdf.text "presented to #{@award.name}", align: :center, size: 26
+          pdf.move_down 20
+          pdf.text "on #{@award.created_at}", align: :center, size: 20
+          pdf.move_down 40
+          pdf.text "Signed and sealed by #{current_user.firstname} #{current_user.lastname}", align: :center, size: 20
+          img = "#{Rails.root}/TEST_FILE1.png"
+          pdf.image img, :at => [20, 450], :scale => 0.33
+          # pdf.image "#{current_user.signature}", align: :center
+        end
 
         mail = AwardMailer.award_email(user.first, @award.granted, current_user, current_user.signature, @award)
 
         results = mail.deliver_now
 
         File.delete("#{Rails.root}/test.pdf")
+        File.delete("#{Rails.root}/TEST_FILE1.png")
 
         format.html { redirect_to @award, notice: 'Award was successfully created.' }
         format.json { render :show, status: :created, location: @award }

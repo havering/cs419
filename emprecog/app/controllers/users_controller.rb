@@ -122,6 +122,8 @@ class UsersController < ApplicationController
 
   def get_signature
     @signature = @user.signature
+    puts "class of signature: #{@user.signature.class}"
+    puts "encoding of signature: #{@user.signature.encoding}"
   end
 
   private
