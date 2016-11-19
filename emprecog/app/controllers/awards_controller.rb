@@ -46,6 +46,8 @@ class AwardsController < ApplicationController
 
         results = mail.deliver_now
 
+        File.delete("#{Rails.root}/test.pdf")
+
         format.html { redirect_to @award, notice: 'Award was successfully created.' }
         format.json { render :show, status: :created, location: @award }
       else
