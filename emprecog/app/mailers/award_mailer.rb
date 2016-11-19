@@ -10,6 +10,8 @@ class AwardMailer < ApplicationMailer
     @signature = signature
     @award = award
 
+    attachments['award.pdf'] = File.read("#{Rails.root}/test.pdf")
+
     mail(to: @awardee.email, subject: 'Award time!')
   end
 end

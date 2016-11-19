@@ -38,7 +38,12 @@ class AwardsController < ApplicationController
     respond_to do |format|
       if @award.save
         # if it saves, then send off an email about it
+        pdf = Prawn::Document.new
+        pdf.text "Hello World!"
+        pdf.render_file "test.pdf"
+
         mail = AwardMailer.award_email(user.first, @award.granted, current_user, current_user.signature, @award)
+
         results = mail.deliver_now
 
         format.html { redirect_to @award, notice: 'Award was successfully created.' }
@@ -72,6 +77,12 @@ class AwardsController < ApplicationController
       format.html { redirect_to awards_url, notice: 'Award was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def create_pdf
+    html = render_to_string(:action => '../views/award_mailer/award_email.html.erb', :layout => false)
+    pdf = PDFKit.new(html)
+    pdf # return the pdf blob prior to converting it to actual pdf
   end
 
   private
