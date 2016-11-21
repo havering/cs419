@@ -1,5 +1,6 @@
 class AwardsController < ApplicationController
   before_action :set_award, only: [:show, :edit, :update, :destroy]
+  before_action :check_admin
 
   # GET /awards
   # GET /awards.json
@@ -14,11 +15,7 @@ class AwardsController < ApplicationController
 
   # GET /awards/new
   def new
-    if current_user.role == 'admin'
-      redirect_to root_path
-    else
       @award = Award.new
-    end
   end
 
   # GET /awards/1/edit
@@ -36,7 +33,7 @@ class AwardsController < ApplicationController
     user = User.where(firstname: first, lastname: last)
     email = user.first.email
 
-    @award = Award.new(award_params.merge({ user_id: user.first.id, email: email, given_by: current_user.id }))
+    @award = Award.new(award_params.merge({user_id: user.first.id, email: email, given_by: current_user.id}))
 
     respond_to do |format|
       if @award.save
@@ -44,7 +41,7 @@ class AwardsController < ApplicationController
         sig = current_user.signature
         sig = sig['data:image/png;base64,'.length .. -1]
 
-        File.open('TEST_FILE1.png', 'wb') do|f|
+        File.open('TEST_FILE1.png', 'wb') do |f|
           f.write(Base64.decode64(sig))
         end
 
@@ -109,13 +106,19 @@ class AwardsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_award
-      @award = Award.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_award
+    @award = Award.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def award_params
-      params.require(:award).permit(:award_type, :granted, :name)
+  def check_admin
+    if current_user.role == 'admin'
+      redirect_to root_path
     end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def award_params
+    params.require(:award).permit(:award_type, :granted, :name)
+  end
 end
