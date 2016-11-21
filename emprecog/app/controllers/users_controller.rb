@@ -94,11 +94,6 @@ class UsersController < ApplicationController
 
     @password_user = User.find_by_email(params[:users][:email])
 
-    # puts "Answers are the same?"
-    # puts "#{@password_user.answer1} - #{@password_user.answer1 == answer}"
-    # puts "#{@password_user.answer2} - #{@password_user.answer2 == answer}"
-    # puts "#{@password_user.answer3} - #{@password_user.answer3 == answer}"
-
     if @password_user
       if (answer == @password_user.answer1.to_s) || (answer == @password_user.answer2.to_s) || (answer == @password_user.answer3.to_s)
         return render :set_new
@@ -108,6 +103,14 @@ class UsersController < ApplicationController
     else
       return redirect_to reset_password_path, notice: 'User not found'
     end
+  end
+
+  def reporting
+
+  end
+
+  def admin
+
   end
 
   def set_new
@@ -122,8 +125,6 @@ class UsersController < ApplicationController
 
   def get_signature
     @signature = @user.signature
-    puts "class of signature: #{@user.signature.class}"
-    puts "encoding of signature: #{@user.signature.encoding}"
   end
 
   private

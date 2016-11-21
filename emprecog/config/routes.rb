@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   post 'reset_password' => 'users#newpassword'
   post 'set_new' => 'users#set_new'
   get 'user/:id/signature' => 'users#get_signature', as: 'get_signature'
+  get 'admin' => 'users#admin', as: 'admin'
+  get 'reporting' => 'users#reporting', as: 'reporting'
 
   root 'home#index'
 end
