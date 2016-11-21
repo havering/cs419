@@ -4,25 +4,29 @@
 
 <table class="table table-striped table-bordered">
   <thead>
-    <tr>
-      <th>Awardee</th>
-      <th>Award Type</th>
-      <th>Granted</th>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th>Awardee</th>
+    <th>Award Type</th>
+    <th>Granted</th>
+    <th colspan="3"></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @awards.each do |award| %>
-      <tr>
-        <td><%= award.name %></td>
-        <td><%= award.award_type %></td>
-        <td><%= award.granted.strftime("%B %d, %Y") %></td>
-        <td><%= link_to 'Show', award %></td>
+  <% @awards.each do |award| %>
+    <tr>
+      <td><%= award.name %></td>
+      <td><%= award.award_type %></td>
+      <td><%= award.granted.strftime("%B %d, %Y") %></td>
+      <td><%= link_to 'Show', award %></td>
+      <% if award.given_by == current_user.id %>
         <td><%= link_to 'Edit', edit_award_path(award) %></td>
-        <td><%= link_to 'Destroy', award, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+        <td><%= link_to 'Delete', award, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      <% else %>
+        <td colspan="2"></td>
+      <% end %>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 

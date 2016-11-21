@@ -23,6 +23,9 @@ class AwardsController < ApplicationController
 
   # GET /awards/1/edit
   def edit
+    unless @award.given_by == current_user.id
+      redirect_to awards_path
+    end
   end
 
   # POST /awards
@@ -33,13 +36,12 @@ class AwardsController < ApplicationController
     user = User.where(firstname: first, lastname: last)
     email = user.first.email
 
-    @award = Award.new(award_params.merge({ user_id: user.first.id, email: email }))
+    @award = Award.new(award_params.merge({ user_id: user.first.id, email: email, given_by: current_user.id }))
 
     respond_to do |format|
       if @award.save
         # if it saves, then send off an email about it
         sig = current_user.signature
-
         sig = sig['data:image/png;base64,'.length .. -1]
 
         File.open('TEST_FILE1.png', 'wb') do|f|
