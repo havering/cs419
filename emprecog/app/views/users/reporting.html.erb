@@ -1,0 +1,18 @@
+<h3>Select a report option:</h3>
+
+<%= form_tag do |f| %>
+  <%= radio_button_tag(:award_type, "award_type") %>
+  <%= label_tag(:award_type_q, "Award Type") %>
+  <br/>
+  <%= radio_button_tag(:awards_by_user, "by_user") %>
+  <%= label_tag(:awards_by_user_q, "Awards per User") %>
+  <br/>
+  <%= radio_button_tag(:awards_from_user, "from_user") %>
+  <%= label_tag(:awards_from_user_q, "Awards from User") %>
+<% end %>
+
+<% #image_tag(@award_overview) %>
+
+<div id="all_awards">
+<%= pie_chart @award_overview %>
+</div>

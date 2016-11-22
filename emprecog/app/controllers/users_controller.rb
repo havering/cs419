@@ -106,11 +106,36 @@ class UsersController < ApplicationController
   end
 
   def reporting
+    @awards = Award.all
+    duct_tape = Award.where(award_type: 'Duct Tape')
+    ofthemonth = Award.where(award_type: 'Employee of the Month')
+    eyeofthe = Award.where(award_type: 'Eye of the Storm')
+    swissarmy = Award.where(award_type: 'Swiss Army Knife')
+    bulls = Award.where(award_type: 'Running with the Bulls')
+    appreciation = Award.where(award_type: 'Appreciation')
+
+    @award_overview = {
+      labels: ["Duct Tape", "Employee of the Month", "Eye of the Storm", "Swiss Army Knife", "Running with the Bulls", "Appreciation"],
+      datasets: [
+        {
+            label: "All Awards",
+            backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                        ],
+            borderColor: "rgba(220,220,220,1)",
+            data: [duct_tape.count, ofthemonth.count, eyeofthe.count, swissarmy.count, bulls.count, appreciation.count]
+        }]
+    }
+
 
   end
 
   def admin
-
   end
 
   def set_new

@@ -18,10 +18,10 @@ gem 'mysql2'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
-gem 'simple_form'
-gem 'prawn'
-
-
+gem 'simple_form' # form for signature
+gem 'prawn' # pdf generation
+gem 'chartjs-ror' # chart generation
+gem 'browser-timezone-rails' # non-UTC time
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

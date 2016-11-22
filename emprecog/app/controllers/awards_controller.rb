@@ -51,7 +51,7 @@ class AwardsController < ApplicationController
           pdf.move_down 20
           pdf.text "presented to #{@award.name}", align: :center, size: 26
           pdf.move_down 20
-          pdf.text "on #{@award.created_at}", align: :center, size: 20
+          pdf.text "on #{@award.created_at.strftime("%m/%d/%Y at %I:%M %p %Z") }", align: :center, size: 20
           pdf.move_down 40
           pdf.text "Signed and sealed by #{current_user.firstname} #{current_user.lastname}", align: :center, size: 20
           img = "#{Rails.root}/TEST_FILE1.png"
