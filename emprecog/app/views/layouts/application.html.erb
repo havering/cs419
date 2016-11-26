@@ -4,9 +4,17 @@
   <title>Employee Recognition</title>
   <%= csrf_meta_tags %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'jquery-ui.css', :cache => true %>
+  <%= javascript_include_tag 'jquery-1.10.2.js' %>
+  <%= javascript_include_tag 'jquery-ui.js' %>
+  <%= csrf_meta_tags %>
+  <script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+  </script>
 </head>
 
 <body>
