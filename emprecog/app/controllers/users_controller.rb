@@ -132,6 +132,14 @@ class UsersController < ApplicationController
         }]
     }
 
+    @user_select = User.all
+  end
+
+  def award_by_user
+
+  end
+
+  def user_awards
 
   end
 
