@@ -20,3 +20,35 @@
 //= require jstz
 //= require browser_timezone_rails/set_time_zone
 //= require_tree .
+
+// getting jquery working here: http://stackoverflow.com/questions/11216192/html-select-jquery-change-not-working
+$(document).ready(function () {
+  $(".by_user_dropdown").change(function () {
+
+    $.get("award_by_user", {id: $(this).val()}, function(data){
+      console.log("Success!");
+
+      console.log(data);
+      var thediv = $("#byChart");
+
+
+      var myChart = new Chart(thediv, data);
+
+    }, "json");
+  });
+
+$(".user_awards_dropdown").change(function (){
+
+  $.get("user_awards", {id: $(this).val()}, function(data){
+    console.log("Success!");
+
+    console.log(data);
+    var thediv = $("#userChart");
+
+
+    var myChart = new Chart(thediv, data);
+    
+  }, "json");
+  });
+});
+

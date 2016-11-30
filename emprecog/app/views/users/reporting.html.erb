@@ -17,9 +17,11 @@
     <%= form_tag do %>
       <div class="field">
         <%= label_tag :name %>
-        <%= select_tag :name, options_from_collection_for_select(@user_select, "id", "full_name") %>
+        <%= select_tag :user_awards_dropdown, options_from_collection_for_select(@user_select, "id", "full_name"), class: 'user_awards_dropdown' %>
       </div>
     <% end %>
+    <canvas id="userChart"></canvas>
+
   </div>
   <div id="by_user">
     <p>Select user:</p>
@@ -27,8 +29,10 @@
     <%= form_tag do %>
       <div class="field">
         <%= label_tag :name %>
-        <%= select_tag :name, options_from_collection_for_select(@user_select, "id", "full_name") %>
+        <%= select_tag :by_user_dropdown, options_from_collection_for_select(@user_select, "id", "full_name"), class: 'by_user_dropdown' %>
       </div>
     <% end %>
+
+    <canvas id="byChart"></canvas>
   </div>
 </div>

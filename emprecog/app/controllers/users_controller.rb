@@ -118,17 +118,17 @@ class UsersController < ApplicationController
       labels: ["Duct Tape", "Employee of the Month", "Eye of the Storm", "Swiss Army Knife", "Running with the Bulls", "Appreciation"],
       datasets: [
         {
-            label: "All Awards",
-            backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                        ],
-            borderColor: "rgba(220,220,220,1)",
-            data: [duct_tape.count, ofthemonth.count, eyeofthe.count, swissarmy.count, bulls.count, appreciation.count]
+          label: "All Awards",
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+          ],
+          borderColor: "rgba(220,220,220,1)",
+          data: [duct_tape.count, ofthemonth.count, eyeofthe.count, swissarmy.count, bulls.count, appreciation.count]
         }]
     }
 
@@ -136,11 +136,69 @@ class UsersController < ApplicationController
   end
 
   def award_by_user
+    id = params[:id]
 
+    duct_tape = Award.where(award_type: 'Duct Tape', given_by: id)
+    ofthemonth = Award.where(award_type: 'Employee of the Month', given_by: id)
+    eyeofthe = Award.where(award_type: 'Eye of the Storm', given_by: id)
+    swissarmy = Award.where(award_type: 'Swiss Army Knife', given_by: id)
+    bulls = Award.where(award_type: 'Running with the Bulls', given_by: id)
+    appreciation = Award.where(award_type: 'Appreciation', given_by: id)
+
+    @by_user = {
+      type: 'pie',
+      data: {
+           labels: ["Duct Tape", "Employee of the Month", "Eye of the Storm", "Swiss Army Knife", "Running with the Bulls", "Appreciation"],
+           datasets: [
+            {
+             label: "Awards by User",
+             backgroundColor: [
+               'rgba(255, 99, 132, 0.2)',
+               'rgba(54, 162, 235, 0.2)',
+               'rgba(255, 206, 86, 0.2)',
+               'rgba(75, 192, 192, 0.2)',
+               'rgba(153, 102, 255, 0.2)',
+               'rgba(255, 159, 64, 0.2)',
+             ],
+             borderColor: "rgba(220,220,220,1)",
+          data: [duct_tape.count, ofthemonth.count, eyeofthe.count, swissarmy.count, bulls.count, appreciation.count]
+        }]}
+    }
+
+    render :json => @by_user
   end
 
   def user_awards
+    id = params[:id]
 
+    duct_tape = Award.where(award_type: 'Duct Tape', user_id: id)
+    ofthemonth = Award.where(award_type: 'Employee of the Month', user_id: id)
+    eyeofthe = Award.where(award_type: 'Eye of the Storm', user_id: id)
+    swissarmy = Award.where(award_type: 'Swiss Army Knife', user_id: id)
+    bulls = Award.where(award_type: 'Running with the Bulls', user_id: id)
+    appreciation = Award.where(award_type: 'Appreciation', user_id: id)
+
+    @user_awards = {
+      type: 'pie',
+      data: {
+           labels: ["Duct Tape", "Employee of the Month", "Eye of the Storm", "Swiss Army Knife", "Running with the Bulls", "Appreciation"],
+           datasets: [
+            {
+             label: "Awards by User",
+             backgroundColor: [
+               'rgba(255, 99, 132, 0.2)',
+               'rgba(54, 162, 235, 0.2)',
+               'rgba(255, 206, 86, 0.2)',
+               'rgba(75, 192, 192, 0.2)',
+               'rgba(153, 102, 255, 0.2)',
+               'rgba(255, 159, 64, 0.2)',
+             ],
+             borderColor: "rgba(220,220,220,1)",
+          data: [duct_tape.count, ofthemonth.count, eyeofthe.count, swissarmy.count, bulls.count, appreciation.count]
+        }]}
+    }
+
+    render :json => @user_awards
   end
 
   def admin
