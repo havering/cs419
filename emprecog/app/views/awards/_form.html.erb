@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :name %>
-    <%= f.collection_select :name, User.order(:firstname), :full_name, :full_name, include_blank: true %>
+    <%= f.collection_select :name, User.where(role: 'user').order(:firstname), :full_name, :full_name, include_blank: true %>
   </div>
 
   <!-- using array as values for collection_select: http://stackoverflow.com/questions/20122257/ror-collection-select-from-array -->

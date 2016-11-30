@@ -9,7 +9,7 @@ function resizeCanvas(canvas) {
 }
 
 // tutorial on implementing signature_pad with rails: https://www.driftingruby.com/episodes/capturing-signatures-with-signature-pad
-$(document).on('turbolinks:load', function() {
+$(document).ready(function() {
   var canvas = document.querySelector("canvas");
   if (canvas){
     canvas.height = canvas.offsetHeight;
