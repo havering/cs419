@@ -8,7 +8,10 @@
   </ul>
 
   <div id="all_awards">
-    <%= pie_chart @award_overview %>
+    <!--<div id="piechart">-->
+      <!--<% pie_chart @award_overview, :width => 500, :height => 500 %>-->
+    <!--</div>-->
+    <canvas id="allChart"></canvas>
   </div>
 
   <div id="user_awards">
@@ -17,7 +20,7 @@
     <%= form_tag do %>
       <div class="field">
         <%= label_tag :name %>
-        <%= select_tag :user_awards_dropdown, options_from_collection_for_select(@user_select, "id", "full_name"), class: 'user_awards_dropdown' %>
+        <%= select_tag :user_awards_dropdown, options_from_collection_for_select(@user_select, "id", "full_name"), include_blank: true, class: 'user_awards_dropdown' %>
       </div>
     <% end %>
     <canvas id="userChart"></canvas>
@@ -29,7 +32,7 @@
     <%= form_tag do %>
       <div class="field">
         <%= label_tag :name %>
-        <%= select_tag :by_user_dropdown, options_from_collection_for_select(@user_select, "id", "full_name"), class: 'by_user_dropdown' %>
+        <%= select_tag :by_user_dropdown, options_from_collection_for_select(@user_select, "id", "full_name"), include_blank: true, class: 'by_user_dropdown' %>
       </div>
     <% end %>
 

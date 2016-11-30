@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'reporting' => 'users#reporting', as: 'reporting'
   get 'user_awards' => 'users#user_awards'
   get 'award_by_user' => 'users#award_by_user'
+  get 'all_awards' => 'users#all_awards'
 
   root 'home#index'
 end
