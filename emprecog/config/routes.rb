@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'user_awards' => 'users#user_awards'
   get 'award_by_user' => 'users#award_by_user'
   get 'all_awards' => 'users#all_awards'
+  post 'users/:id' => 'users#toggle_admin'
 
   root 'home#index'
 end

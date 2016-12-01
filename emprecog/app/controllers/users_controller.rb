@@ -210,6 +210,22 @@ class UsersController < ApplicationController
   def admin
   end
 
+  def toggle_admin
+    user = User.find(params[:id])
+    puts "$" * 40
+    puts "user selected is #{user.inspect}"
+    puts "$" * 40
+
+    if user.role == 'admin'
+      user.update_column(:role, 'user')
+    else
+      user.update_column(:role, 'admin')
+      puts user.errors.full_messages
+    end
+
+    redirect_to users_path
+  end
+
   def set_new
     email = params[:users][:email]
     password = params[:users][:newpassword]
@@ -232,6 +248,6 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:firstname, :lastname, :email, :password, :signature, :answer1, :answer2, :answer3)
+    params.require(:user).permit(:firstname, :lastname, :email, :password, :signature, :answer1, :answer2, :answer3, :role)
   end
 end
