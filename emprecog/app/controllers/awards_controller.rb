@@ -30,12 +30,11 @@ class AwardsController < ApplicationController
   def create
     date = date_from_form(params[:award])
 
-    first = award_params[:name].split.first
-    last = award_params[:name].split.last
-    user = User.where(firstname: first, lastname: last)
-    email = user.first.email
+    user = User.find(award_params[:name])
 
-    @award = Award.new(award_params.merge({user_id: user.first.id, email: email, given_by: current_user.id, granted: date}))
+    user_name = user.full_name
+
+    @award = Award.new(award_params.merge({user_id: user.id, email: user.email, given_by: current_user.id, granted: date, name: user_name}))
 
     respond_to do |format|
       if @award.save
@@ -61,7 +60,7 @@ class AwardsController < ApplicationController
           # pdf.image "#{current_user.signature}", align: :center
         end
 
-        mail = AwardMailer.award_email(user.first, @award.granted, current_user, current_user.signature, @award)
+        mail = AwardMailer.award_email(user, @award.granted, current_user, current_user.signature, @award)
 
         results = mail.deliver_now
 
