@@ -15,7 +15,7 @@ class AwardsController < ApplicationController
 
   # GET /awards/new
   def new
-      @award = Award.new
+    @award = Award.new
   end
 
   # GET /awards/1/edit
@@ -28,12 +28,14 @@ class AwardsController < ApplicationController
   # POST /awards
   # POST /awards.json
   def create
+    date = date_from_form(params[:award])
+
     first = award_params[:name].split.first
     last = award_params[:name].split.last
     user = User.where(firstname: first, lastname: last)
     email = user.first.email
 
-    @award = Award.new(award_params.merge({user_id: user.first.id, email: email, given_by: current_user.id}))
+    @award = Award.new(award_params.merge({user_id: user.first.id, email: email, given_by: current_user.id, granted: date}))
 
     respond_to do |format|
       if @award.save
@@ -51,7 +53,7 @@ class AwardsController < ApplicationController
           pdf.move_down 20
           pdf.text "presented to #{@award.name}", align: :center, size: 26
           pdf.move_down 20
-          pdf.text "on #{@award.created_at.strftime("%m/%d/%Y at %I:%M %p %Z") }", align: :center, size: 20
+          pdf.text "on #{@award.granted.strftime("%m/%d/%Y at %I:%M %p %Z") }", align: :center, size: 20
           pdf.move_down 40
           pdf.text "Signed and sealed by #{current_user.firstname} #{current_user.lastname}", align: :center, size: 20
           img = "#{Rails.root}/TEST_FILE1.png"
@@ -115,6 +117,10 @@ class AwardsController < ApplicationController
     if current_user.role == 'admin'
       redirect_to root_path
     end
+  end
+
+  def date_from_form(ev)
+    DateTime.new(ev["granted(1i)"].to_i, ev["granted(2i)"].to_i, ev["granted(3i)"].to_i, ev["granted(4i)"].to_i, ev["granted(5i)"].to_i)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

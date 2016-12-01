@@ -24,7 +24,7 @@
 // getting jquery working here: http://stackoverflow.com/questions/11216192/html-select-jquery-change-not-working
 $(document).ready(function () {
   // get the data from the reporting route
-
+  
   $.get("all_awards", function(data) {
       var thediv = $("#allChart");
 

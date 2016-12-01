@@ -7,7 +7,7 @@
 
 <p>
   <strong>Granted:</strong>
-  <%= @award.created_at.strftime("%m/%d/%Y at %I:%M %p %Z") %>
+  <%= @award.granted.strftime("%m/%d/%Y at %I:%M %p %Z") %>
 </p>
 <% if @award.given_by == current_user.id %>
   <%= link_to 'Edit', edit_award_path(@award) %> |
