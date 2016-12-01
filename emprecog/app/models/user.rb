@@ -5,9 +5,9 @@ class User < ApplicationRecord
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :password, presence: true
-  validates :answer1, presence: true
-  validates :answer2, presence: true
-  validates :answer3, presence: true
+  validates :answer1, presence: true, on: :create
+  validates :answer2, presence: true, on: :create
+  validates :answer3, presence: true, on: :create
 
   # validate that the username is a valid email address format
   # example regex from: stackoverflow.com/questions/4770133/rails-regex-for-email-validation
