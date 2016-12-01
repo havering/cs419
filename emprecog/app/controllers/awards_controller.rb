@@ -46,17 +46,43 @@ class AwardsController < ApplicationController
           f.write(Base64.decode64(sig))
         end
 
+        # figure out the message that's going to be attached
+
+        if @award.award_type == 'Employee of the Month'
+          msg = 'For your invaluable service this calendar month'
+          graphic = "#{Rails.root}/eotm.jpg"
+        elsif @award.award_type == 'Duct Tape'
+          msg = 'For being able to fix just about anything'
+          graphic = "#{Rails.root}/duct-tape.jpg"
+        elsif @award.award_type == 'Eye of the Storm'
+          msg = 'For being the calm in the midst of chaos'
+          graphic = "#{Rails.root}/eye.jpg"
+        elsif @award.award_type == 'Swiss Army Knife'
+          msg = 'For being the most indispensible'
+          graphic = "#{Rails.root}/swiss.jpg"
+        elsif @award.award_type == 'Running with the Bulls'
+          msg = 'For being the biggest risk taker'
+          graphic = "#{Rails.root}/bulls.jpg"
+        else
+          msg = 'In apprecation of your hard work'
+          graphic = "#{Rails.root}/appreciation.jpg"
+        end
+
         # http://stackoverflow.com/questions/5685492/pdf-generating-with-prawn-how-can-i-acces-variable-in-prawn-generate
         Prawn::Document.generate("test.pdf") do |pdf|
           pdf.text "#{@award.award_type}", align: :center, size: 42
           pdf.move_down 20
+          pdf.text "#{msg}", align: :center, size: 34
+          pdf.move_down 20
+          pdf.image graphic, :position => :center, :scale => 0.33
+          pdf.move_down 40
           pdf.text "presented to #{@award.name}", align: :center, size: 26
           pdf.move_down 20
           pdf.text "on #{@award.granted.strftime("%m/%d/%Y at %I:%M %p %Z") }", align: :center, size: 20
           pdf.move_down 40
           pdf.text "Signed and sealed by #{current_user.firstname} #{current_user.lastname}", align: :center, size: 20
           img = "#{Rails.root}/TEST_FILE1.png"
-          pdf.image img, :at => [20, 450], :scale => 0.33
+          pdf.image img, :position => :center, :scale => 0.33
           # pdf.image "#{current_user.signature}", align: :center
         end
 
