@@ -24,9 +24,10 @@
 // getting jquery working here: http://stackoverflow.com/questions/11216192/html-select-jquery-change-not-working
 $(document).ready(function () {
   // get the data from the reporting route
-  
-  $.get("all_awards", function(data) {
-      var thediv = $("#allChart");
+  var aChart = null;
+
+  $.get("all_awards", function (data) {
+    var thediv = $("#allChart");
 
     var myChart = new Chart(thediv, data);
   }, "json");
@@ -34,30 +35,39 @@ $(document).ready(function () {
   // watch for dropdown changes to trigger chart loading
   $(".by_user_dropdown").change(function () {
 
-    $.get("award_by_user", {id: $(this).val()}, function(data){
+
+    $.get("award_by_user", {id: $(this).val()}, function (data) {
       console.log("Success!");
+
+      if (aChart != null) {
+        aChart.destroy();
+      }
 
       console.log(data);
       var thediv = $("#byChart");
 
 
-      var myChart = new Chart(thediv, data);
+      aChart = new Chart(thediv, data);
 
     }, "json");
   });
 
-$(".user_awards_dropdown").change(function (){
+  $(".user_awards_dropdown").change(function () {
 
-  $.get("user_awards", {id: $(this).val()}, function(data){
-    console.log("Success!");
+    $.get("user_awards", {id: $(this).val()}, function (data) {
+      console.log("Success!");
 
-    console.log(data);
-    var thediv = $("#userChart");
+      if (aChart != null) {
+        aChart.destroy();
+      }
+
+      console.log(data);
+      var thediv = $("#userChart");
 
 
-    var myChart = new Chart(thediv, data);
+      aChart = new Chart(thediv, data);
 
-  }, "json");
+    }, "json");
   });
 });
 
